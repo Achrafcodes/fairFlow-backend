@@ -8,6 +8,10 @@ const app = express();
 
 app.use(express.json());
 
+console.log(process.env.MONGODB_URI);
+app.get("/", (req, res) => {
+  res.json({ message: "server connected" });
+});
 // connect mongo
 mongoose
   .connect(process.env.MONGODB_URI)
