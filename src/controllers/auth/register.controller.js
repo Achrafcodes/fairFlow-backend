@@ -27,7 +27,7 @@ export const Register = async (req, res) => {
         expiresIn: '15d',
       },
     );
-    newuser.refreshtoken.push(refreshToken);
+    newuser.refreshtoken = refreshToken;
     await newuser.save();
     res.status(201).json({
       message: 'user Created !',

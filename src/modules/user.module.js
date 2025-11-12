@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const UserSchema = new mongoose.Schema(
   {
@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
+      enum: ['user', 'admin'],
+      default: 'user',
       required: false,
     },
     refreshtoken: {
@@ -33,8 +33,8 @@ const UserSchema = new mongoose.Schema(
 );
 
 // Pre-save hook to hash password
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   try {
     const saltRounds = 12;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -49,5 +49,5 @@ UserSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;
